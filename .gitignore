@@ -1,0 +1,6 @@
+__pycache__
+.vscode
+archive
+output.json
+pytest_html_report.html
+.pytest_cache
