@@ -7,26 +7,24 @@ link_url = "https://www.pcfactory.cl/producto/45780-gear-notebook-orchid-14-1-fh
 
 
 @pytest.fixture
-def driver():
+def trigger():
     driver = webdriver.Chrome()
     driver.get(link_url)
-    return driver
+    trigger = Trigger( driver )
+    return trigger
 
 
 # Debe comprobar la url de la plataforma de pagos
-def test_direc_to_to_pay( driver ):
-
-    trigger = Trigger( driver )
+def test_direc_to_to_pay( trigger ):
 
     trigger.add_product_to_cart()
     trigger.fill_direction_input()
     trigger.fill_inputs_and_pay()
-    assert 'mercadopago.cl' in driver.current_url 
+    assert 'mercadopago.cl' in trigger.driver.current_url 
 
 # En icono de carro debe aparecer el producto agregado.
-def test_product_in_car( driver ):
+def test_product_in_car( trigger ):
 
-    trigger = Trigger( driver )
     trigger.add_product_to_cart()
     assert trigger.driver.find_element(by=By.CSS_SELECTOR, value=".added-products-indicator:nth-child(3)").text in "1" 
 
